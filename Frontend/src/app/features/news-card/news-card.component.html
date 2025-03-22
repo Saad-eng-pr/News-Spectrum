@@ -1,0 +1,59 @@
+<!-- (click)="navigateToArticle()" -->
+  <div class="card" (mouseenter)="onHover(true)" (mouseleave)="onHover(false)"
+    [ngStyle]="isSelected ? { 'z-index': '3' } : { 'z-index': '2' }" >
+    
+    <div class="hover-external-zone">
+      <div 
+        class="hover-internal-zone" 
+        [class.visible]="isVisible"
+      >
+        
+        <fa-icon [icon]="faBookmark"  
+          class="sticky-bookmark"
+          [class.saved]="isItSaved()"
+          (click)='ToggleSaving()'
+          >
+        </fa-icon>
+        <div *ngIf="!!article.biasRating" class="biasRating" [class.visible]="isVisible" [class.hidden]="!isVisible">
+          {{article.biasRating}}
+          <app-sandboxed-emoji [dim]="{x:30,y:30}" [coord]="{i: 2,j: retrieveEmoji() }"></app-sandboxed-emoji>
+          
+        </div>
+          <input 
+            type="checkbox" 
+            class="sticky-checkbox" 
+            (click)="onClickDiv()"
+            [(ngModel)]="isChecked" 
+            (change)="onCheckboxChange($event)"
+          />
+      </div>
+    </div>
+    <div class="card-image">
+      <img [src]="article.urlToImage ||'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFVPcHGroySXhQpz_2eB-C9pmYwLtDQ4e6lQ&s'" alt="Card image" class="flip-image" />
+      <div class="card-text">
+        <p>
+          {{article.description}}
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="Source">
+        {{article.source.name}}
+      </div>
+      <div class="Author">
+        by {{article.author}}
+      </div>
+    </div>
+
+    <div class="card-body">
+      <h2 class="card-title">{{article.title}}</h2>
+      <p class="card-content">{{article.content}}</p>
+    </div>
+    
+  </div>
+  
+
+  
+  
+  

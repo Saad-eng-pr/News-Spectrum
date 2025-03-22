@@ -1,0 +1,15 @@
+<section class="quick-links">
+    <div class="quick-links-container">
+      <button mat-button class="quick-link" *ngFor="let link of quickLinks" (click)="link[1]()">
+        {{ link[0] }}
+      </button>
+      <!-- <div (click)="toggleSidebar()> -->
+      <button mat-button class="quick-link" (click)="toggleSidebar()">
+        <fa-icon [icon]="faSearch" ></fa-icon>
+      </button>
+      
+      <!-- <button (click)="toggleSidebar()" >
+        Search
+      </button> -->
+    </div>
+</section>

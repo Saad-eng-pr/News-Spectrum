@@ -1,0 +1,16 @@
+contexts:
+  western:
+    keywords:
+      socialist: -0.8
+      progressive: -0.6
+      conservative: 0.7
+      nationalist: 0.9
+  arab:
+    keywords:
+      islamist: -0.5
+      secular: 0.6
+      reformist: -0.3
+  global:
+    keywords:
+      radical: -0.7
+      moderate: 0.2

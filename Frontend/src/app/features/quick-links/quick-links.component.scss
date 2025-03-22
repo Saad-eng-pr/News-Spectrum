@@ -1,0 +1,74 @@
+.quick-links {
+    margin: 15px;
+  }
+  
+  .quick-links-container {
+    display: flex;
+    justify-content: space-between; /* Distributes items with equal spacing */
+    border-radius: 12px; /* Rounded corners for the container */
+    background-color: #e0d9f1; /* Light purple background */
+    padding: 15px 20vw; /* Large padding for large screens, 20% of the viewport width */
+    max-width: 100%; /* Prevents the container from expanding too much */
+    overflow-x: auto; /* Enables horizontal scrolling */
+    white-space: nowrap; /* Ensures items stay on a single line */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  
+    /* For medium screens (like tablets) */
+    @media (max-width: 1024px) {
+      padding: 15px 10vw; /* Reduce padding to 10% of viewport width */
+    }
+  
+    /* For small screens (like mobile phones) */
+    @media (max-width: 768px) {
+      padding: 15px 5vw; /* Further reduce padding to 5% of viewport width */
+    }
+  
+    /* Optional: For very small screens, like very narrow mobile devices */
+    @media (max-width: 480px) {
+      padding: 15px 3vw; /* Even smaller padding */
+    }
+  }
+  
+  .quick-links-container > * {
+    flex-shrink: 0; /* Prevents the items from shrinking */
+    margin: 0 1vw; /* Reduced spacing between items */
+  }
+  
+  .quick-links-container > *:not(:last-child) {
+    margin-right: 1vw; /* Adjusts the spacing between buttons */
+  }
+  
+  /* Optional: Add media query for smaller screen sizes */
+  @media (max-width: 768px) {
+    .quick-links-container > * {
+      margin: 0 3vw; /* More spacing on smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .quick-links-container > * {
+      margin: 0 5vw; /* Even more spacing on very small screens */
+    }
+  }
+  
+  .quick-link {
+    background-color: #d1c4e938; /* Light purple-blue background */
+    color: #3f2d69 !important; /* Ensure text color is dark gray (with !important to override other rules) */
+    padding: 10px 20px; /* Padding for buttons */
+    border: none; /* Remove button border */
+    border-radius: 8px; /* Rounded corners for buttons */
+    font-weight: 500; /* Slightly bolder text */
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover and click effects */
+    cursor: pointer; /* Pointer cursor to indicate clickable button */
+  }
+  
+  .quick-link:hover {
+    background-color: #3f2d69; /* Darker purple-blue for hover */
+    color: #e0d9f1 !important; /* White text on hover for contrast */
+  }
+  
+  .quick-link:active {
+    transform: scale(0.95); /* Click effect: slightly shrinks on click */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Click effect shadow */
+  }
+  

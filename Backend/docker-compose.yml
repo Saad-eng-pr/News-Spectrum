@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: news_spectrum
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: maroc123@@@
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .  # Builds the Dockerfile in the current directory
+    container_name: news_spectrum_app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/news_spectrum
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: maroc123@@@
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:

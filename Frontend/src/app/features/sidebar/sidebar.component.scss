@@ -1,0 +1,115 @@
+.sidebar {
+  width: 0px; /* Sidebar réduite */
+  height: 100vh;
+  background: linear-gradient(160deg, #3f2d69f3, #3f2d69c9);
+  color: white;
+  padding: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  z-index: 1000;
+  border-radius: 0 15px 15px 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.open {
+    width: 160px; /* Sidebar ouverte */
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 40px 0 0; // Espace pour le bouton close
+
+    li {
+      margin: 15px 0;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+
+      + li {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center; // Centrage quand réduit
+        gap: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #1abc9c;
+          transform: scale(1.05);
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+          justify-content: flex-start; // Alignement normal quand ouvert
+        }
+
+        .fa-icon {
+          font-size: 20px;
+          transition: transform 0.3s ease;
+
+          &:hover {
+            transform: scale(1.2);
+          }
+        }
+      }
+    }
+  }
+
+  &.open li a {
+    justify-content: flex-start;
+  }
+}
+
+/* Bouton burger */
+.burger-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  position: fixed;
+  left: 15px;
+  top: 15px;
+  width: 40px;
+  height: 40px;
+  z-index: 1001;
+  align-items: center;
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth fade */
+  
+  /* Ensure it's hidden when sidebar is closed */
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.burger-button span {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  margin: 5px 0;
+  transition: transform 0.3s ease, opacity 0.2s ease 0.1s;
+}
+
+/* Hide button when sidebar is closed */
+.sidebar:not(.open) ~ .burger-button {
+  opacity: 0;
+  pointer-events: none; /* Prevent clicks */
+  visibility: hidden; /* Ensures it's not focusable */
+}
+
+/* Transformation du bouton burger lorsque la sidebar est ouverte */
+.sidebar.open ~ .burger-button span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.sidebar.open ~ .burger-button span:nth-child(2) {
+  opacity: 0;
+}
+.sidebar.open ~ .burger-button span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}

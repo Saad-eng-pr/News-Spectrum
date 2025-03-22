@@ -1,0 +1,255 @@
+// Variables
+$primary: linear-gradient(135deg, #4a1e60 0%, #5a2a83 100%);
+$secondary: #6c5ce7;
+$text-color: #2d3436;
+$background: #f8f9fa;
+$white: #ffffff;
+$success: #00b894;
+$error: #d63031;
+$input-height: 55px;
+$transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Mixins
+@mixin neomorphic-shadow {
+  box-shadow: 8px 8px 16px rgba(204, 204, 204, 0.2),
+             -8px -8px 16px rgba(255, 255, 255, 0.5);
+}
+
+@mixin input-icon($icon) {
+  &::before {
+    content: $icon;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba($text-color, 0.6);
+    z-index: 2;
+  }
+}
+
+// Animations
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-12px); }
+  40% { transform: translateX(12px); }
+  60% { transform: translateX(-8px); }
+  80% { transform: translateX(8px); }
+}
+
+.register-container {
+  max-width: 440px;
+  margin: 5vh auto;
+  padding: 40px;
+  background: $white;
+  border-radius: 20px;
+  @include neomorphic-shadow;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: $primary;
+    animation: gradientShift 8s ease infinite;
+    opacity: 0.1;
+    z-index: 0;
+  }
+
+  h2 {
+    position: relative;
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
+    color: transparent;
+    background: $primary;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  form {
+    position: relative;
+    z-index: 1;
+
+    .form-group {
+      margin-bottom: 1.8rem;
+      position: relative;
+
+      label {
+        position: absolute;
+        left: 55px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba($text-color, 0.6);
+        transition: $transition;
+        pointer-events: none;
+        font-size: 0.95rem;
+      }
+
+      input {
+        width: 80%;
+        height: $input-height;
+        padding: 0 20px 0 55px;
+        font-size: 1rem;
+        border: 2px solid rgba($text-color, 0.1);
+        border-radius: 12px;
+        transition: $transition;
+        background: rgba($background, 0.8);
+        backdrop-filter: blur(4px);
+        position: relative;
+
+        &:focus, &:valid, &.input-valid {
+          border-color: $secondary;
+          background: $white;
+          padding-top: 12px;
+          
+          + label {
+            top: 8px;
+            left: 55px;
+            font-size: 0.75rem;
+            transform: none;
+            color: $secondary;
+          }
+        }
+
+        &.input-valid {
+          border-color: $success;
+          + label { color: $success; }
+        }
+
+        &.input-error {
+          border-color: $error;
+          animation: shake 0.4s ease-in-out;
+          + label { color: $error; }
+        }
+
+        &#name { @include input-icon('\f007'); }
+        &#email { @include input-icon('\f0e0'); }
+        &#password { @include input-icon('\f023'); }
+      }
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 1.1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: $primary;
+      color: $white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: $transition;
+      background-size: 200% auto;
+      margin-top: 1rem;
+
+      &:hover {
+        background-position: right center;
+        box-shadow: 0 5px 25px rgba($secondary, 0.4);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 10px rgba($secondary, 0.3);
+      }
+    }
+  }
+
+  p {
+    margin-top: 2rem;
+    color: rgba($text-color, 0.8);
+    text-align: center;
+    font-size: 0.95rem;
+
+    a {
+      color: $secondary;
+      position: relative;
+      text-decoration: none;
+      font-weight: 500;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: $secondary;
+        transition: $transition;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 480px) {
+  .register-container {
+    margin: 20px;
+    padding: 2rem;
+    border-radius: 16px;
+    
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+    }
+    
+    form .form-group {
+      input {
+        height: 50px;
+        padding: 0 15px 0 50px;
+        font-size: 0.95rem;
+
+        &#name, &#email, &#password {
+          &::before { left: 18px; }
+        }
+
+        &:focus, &:valid, &.input-valid {
+          + label { left: 50px; }
+        }
+      }
+
+      label {
+        left: 50px;
+        font-size: 0.9rem;
+      }
+    }
+
+    button[type="submit"] {
+      padding: 1rem;
+      font-size: 1rem;
+    }
+  }
+}
+.error-message {
+  color: $error;
+  background: rgba($error, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid rgba($error, 0.3);
+  animation: shake 0.4s ease-in-out;
+}

@@ -1,0 +1,50 @@
+<app-header-layout></app-header-layout>
+<app-sidebar></app-sidebar>
+
+<div class="login-container">
+  <h2>Connexion</h2>
+
+  <form (ngSubmit)="onLogin()">
+    <div class="form-group">
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="email"
+        name="email"
+        placeholder=" "
+        required
+      />
+      <label for="email">Email</label>
+    </div>
+
+    <div class="form-group">
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        id="password"
+        [(ngModel)]="password"
+        name="password"
+        placeholder=" "
+        required
+      />
+      <label for="password">Mot de passe</label>
+
+      <!-- Icône pour afficher/masquer le mot de passe -->
+      <div class="password-toggle" (click)="togglePasswordVisibility()">
+        <fa-icon *ngIf="!showPassword" [icon]="faEye"></fa-icon>
+        <fa-icon *ngIf="showPassword" [icon]="faEyeSlash"></fa-icon>
+      </div>
+    </div>
+
+   
+
+    <button type="submit" [disabled]="loading">
+      <span *ngIf="!loading">Se connecter</span>
+      <span *ngIf="loading">Connexion en cours...</span>
+    </button>
+  </form>
+
+  <p>
+    Pas encore de compte ?
+    <a routerLink="/register">Créer un compte</a>
+  </p>
+</div>

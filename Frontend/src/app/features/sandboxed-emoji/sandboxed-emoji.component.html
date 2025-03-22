@@ -1,0 +1,10 @@
+
+<div *ngIf="!!dim">
+
+<div class="emoji" 
+    [ngStyle]="{ 'background-position': getSpritePosition(), 
+                'width': dim.x + 'px ' ,
+                'height': (dim.y) + 'px '  ,
+                'background-size': (dim.x * 5) + 'px ' + (dim.x * 5) + 'px' }"></div>
+
+</div>

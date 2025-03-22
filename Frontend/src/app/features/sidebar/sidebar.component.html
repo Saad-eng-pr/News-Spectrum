@@ -1,0 +1,42 @@
+  <!-- Sidebar si on remplace *ngIf par ? [class.hidden] -->
+  <div class="sidebar" [class.open]="isSidebarOpen">  
+    <ul>
+      <li>
+        <a [routerLink]="'/accueil'" >
+          <fa-icon [icon]="faHome"></fa-icon> <span *ngIf="isSidebarOpen">Accueil</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="'/account'" >
+          <fa-icon [icon]="faUser"></fa-icon> <span *ngIf="isSidebarOpen">Compte</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="'/saved'" >
+          <fa-icon [icon]="faBookmark"></fa-icon> <span *ngIf="isSidebarOpen">Saved</span>
+        </a>
+      </li>
+      <!-- <li>
+        <a routerLink="/parametres" >
+          <fa-icon [icon]="faCog"></fa-icon> <span *ngIf="isSidebarOpen">Paramètres</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/historique" >
+          <fa-icon [icon]="faHistory"></fa-icon> <span *ngIf="isSidebarOpen">Historique</span>
+        </a>
+      </li> -->
+    </ul>
+  </div>
+  <!-- Bouton burger -->
+
+<button class="burger-button" (click)="closeSidebar()">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+  
+  <!-- Overlay -->
+  <div class="sidebar-overlay" [class.active]="isSidebarOpen" (click)="closeSidebar()"></div>
+  

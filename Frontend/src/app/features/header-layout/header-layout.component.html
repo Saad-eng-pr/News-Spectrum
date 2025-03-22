@@ -1,0 +1,51 @@
+<section class="header">
+    <div><div class="bundle">
+        <button class="burger-button" (click)="evento()">
+        <div [ngStyle]="{'opacity': (sidebarObs | async) ? 0.0 : 1.0}">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        </button>
+        <div class="logo-button" (click)="redirectToHome()">
+            <a [routerLink]="'/acceuil'">
+                <img src="assets/logo.png" alt="Company Logo" class="logo-image" />
+            </a>
+        </div>
+    </div></div>
+    
+    
+  
+    <div class="header-actions " (click)="onClick($event)">
+        <div class="dropdown-container" (mouseleave)="closeMenu(0)">
+            <div class="action-item" #dropdownButton (mouseenter)="openMenu(0)">
+                <fa-icon [icon]="retrieveIcon('faLanguage')" class="icon"></fa-icon>
+                <span class="text">Language</span>
+            </div>
+        
+            <div class="dropdown-menu" *ngIf="dropdownStates[0]" [ngClass]="dropdownPositions[0]">
+                <ul>
+                    <li><div class="icon2">🇧🇪</div> Français</li>
+                    <li><div class="icon2">🇺🇸</div> English</li>
+                </ul>
+            </div>
+        </div>
+        <div class="dropdown-container" (mouseleave)="closeMenu(1)">
+            <div class="action-item" #dropdownButton (mouseenter)="openMenu(1)">
+                <fa-icon [icon]="retrieveIcon('faUser')" class="icon"></fa-icon>
+                <span class="text">Account</span>
+            </div>
+        
+            <div class="dropdown-menu" *ngIf="dropdownStates[1]" [ngClass]="dropdownPositions[1]">
+                <ul>
+                    <li *ngFor="let aQA of accQuickActions" (click)="aQA[2]()">
+                        <div *ngIf="!aQA[3]" class="fancyAcc">
+                            <fa-icon [icon]="aQA[0]" class="icon2"></fa-icon>{{ aQA[1] }}<div></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+</section>

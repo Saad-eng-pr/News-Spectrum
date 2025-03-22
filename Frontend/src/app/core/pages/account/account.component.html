@@ -1,0 +1,82 @@
+<app-header-layout></app-header-layout>
+<app-sidebar></app-sidebar>
+
+<div class="account-container">
+  <h2>Gestion du compte</h2>
+  
+  <div *ngIf="isLoading" class="loading">Chargement...</div>
+
+  <form *ngIf="!isLoading" [formGroup]="accountForm" (ngSubmit)="updateAccount()">
+    <div class="form-group">
+      <label>Nom d'utilisateur</label>
+      <input 
+        type="text" 
+        formControlName="username"
+        [class.invalid]="accountForm.get('username')?.invalid && accountForm.get('username')?.touched">
+      <div *ngIf="accountForm.get('username')?.hasError('required')" class="error">
+        Le nom d'utilisateur est requis
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input 
+        type="email" 
+        formControlName="email"
+        [class.invalid]="accountForm.get('email')?.invalid && accountForm.get('email')?.touched">
+      <div *ngIf="accountForm.get('email')?.hasError('required')" class="error">
+        L'email est requis
+      </div>
+      <div *ngIf="accountForm.get('email')?.hasError('email')" class="error">
+        Format d'email invalide
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Mot de passe actuel</label>
+      <input 
+        type="password" 
+        formControlName="currentPassword"
+        [class.invalid]="accountForm.get('currentPassword')?.invalid && accountForm.get('currentPassword')?.touched">
+      <div *ngIf="accountForm.get('currentPassword')?.hasError('required')" class="error">
+        Le mot de passe actuel est requis
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Nouveau mot de passe (laisser vide pour ne pas modifier)</label>
+      <input 
+        type="password" 
+        formControlName="newPassword"
+        [class.invalid]="accountForm.get('newPassword')?.invalid && accountForm.get('newPassword')?.touched">
+      <div *ngIf="accountForm.get('newPassword')?.hasError('minlength')" class="error">
+        6 caractères minimum
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Confirmer le nouveau mot de passe</label>
+      <input 
+        type="password" 
+        formControlName="confirmNewPassword"
+        [class.invalid]="accountForm.get('confirmNewPassword')?.invalid && accountForm.get('confirmNewPassword')?.touched">
+      <div *ngIf="accountForm.get('confirmNewPassword')?.value !== accountForm.get('newPassword')?.value" class="error">
+        Les mots de passe ne correspondent pas
+      </div>
+    </div>
+
+    <button 
+      type="submit" 
+      [disabled]="accountForm.invalid"
+      class="btn-update">
+      Mettre à jour
+    </button>
+  </form>
+
+  <button 
+    *ngIf="!isLoading"
+    (click)="deleteAccount()"
+    class="btn-delete">
+    Supprimer le compte
+  </button>
+</div>

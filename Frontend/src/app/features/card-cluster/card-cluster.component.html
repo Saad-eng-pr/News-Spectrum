@@ -1,0 +1,20 @@
+<main class="articles-container">
+    
+    <div class="scroll-content">
+        <div *ngFor="let art of articles" class="article-item">
+            <app-news-card [article]="art" (isVisibleEvent)="reloadSelectedCards($event)"></app-news-card>
+        </div>
+    </div>
+    <div 
+        [ngStyle]="{
+            'width': '100%',
+            'min-height': '100%',
+            'pointer-events': 'none',
+            'background-color': blurry ? 'rgba(255, 255, 255, 0.5)' : 'transparent',
+            'position': 'absolute',
+            'top': '0',
+            'left': '0',
+            'z-index': blurry ? '2' : '1'
+        }">
+    </div>
+</main>

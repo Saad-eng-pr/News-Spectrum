@@ -1,0 +1,210 @@
+<div class="search-container" *ngIf="(search_barObs | async) === true">
+  <!-- Votre search bar actuelle -->
+  <div class="search-bar">
+    <div class="search-input">
+      <fa-icon [icon]="faSearch" class="search-icon"></fa-icon>
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        placeholder="Rechercher des actualités..."
+        (keyup.enter)="onSearch()"
+      >
+    </div>
+    <div *ngIf="showErrorModal" class="error-modal-overlay">
+      <div class="error-modal">
+        <div class="error-modal-header">
+          <fa-icon [icon]="faExclamationTriangle" class="error-icon"></fa-icon>
+          <h3>Oups ! Une erreur est survenue</h3>
+        </div>
+        
+        <div class="error-modal-body">
+          <p>{{ errorMessage }}</p>
+          <div *ngIf="errorDetails" class="error-details">
+            <button class="details-toggle" (click)="showDetails = !showDetails">
+              Voir les détails techniques {{ showDetails ? '▼' : '▶' }}
+            </button>
+            <pre *ngIf="showDetails">{{ errorDetails | json }}</pre>
+          </div>
+        </div>
+    
+        <div class="error-modal-footer">
+          <button class="retry-button" (click)="onSearch()">
+            <fa-icon [icon]="faRedo"></fa-icon>
+            Réessayer
+          </button>
+          <button class="close-button" (click)="showErrorModal = false">
+            Fermer
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <select 
+      class="sort-select"
+      [(ngModel)]="selectedSort"
+      (change)="onSortChange()"
+    >
+      <option value="date">Trier par : Date</option>
+      <option value="source">Trier par : Source</option>
+      <option value="country">Trier par : Pays</option>
+      <option value="langue">Trier par : Langue</option>
+    </select>
+   
+  </div>
+  <div class="source-filters">
+    <span class="filter-label">Sources :</span>
+    <div class="filter-buttons">
+      <button 
+        *ngFor="let source of visibleSources"
+        [class.active]="selectedSources.includes(source)"
+        (click)="toggleSource(source)"
+        [class.tous-button]="source === 'Tous'"
+      >
+        {{ source }}
+      </button>
+      <button 
+        *ngIf="hiddenSources.length > 0"
+        class="more-button"
+        (click)="openSourceModal()"
+      >
+        + {{ hiddenSources.length }} Autre(s)
+      </button>
+    </div>
+    <div class="filter-buttons">
+      <button class="filter-button" (click)="openFilters()">
+        <fa-icon [icon]="faFilter"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <div class="additional-filters" *ngIf="isFiltersVisible">
+    <!-- Filtres Langues -->
+    <div class="source-filters">
+      <span class="filter-label">Langues :</span>
+      <div class="filter-buttons">
+        <button 
+          *ngFor="let lang of visibleLanguages"
+          [class.active]="selectedLanguages.includes(lang)"
+          (click)="toggleLanguage(lang)"
+        >
+          <span class="flag-icon flag-icon-{{ getLangCode(lang) }}"></span>
+          {{ lang }}
+        </button>
+        <button 
+          *ngIf="hiddenLanguages.length > 0"
+          class="more-button"
+          (click)="openLanguageModal()"
+        >
+          + {{ hiddenLanguages.length }} Autre(s)
+        </button>
+      </div>
+    </div>
+
+    <!-- Filtres Pays -->
+    <div class="source-filters">
+      <span class="filter-label">Pays :</span>
+      <div class="filter-buttons">
+        <button 
+          *ngFor="let country of visibleCountries"
+          [class.active]="selectedCountries.includes(country)"
+          (click)="toggleCountry(country)"
+        >
+          <span class="flag-icon flag-icon-{{ getCountryCode(country) }}"></span>
+          {{ country }}
+        </button>
+        <button 
+          *ngIf="hiddenCountries.length > 0"
+          class="more-button"
+          (click)="openCountryModal()"
+        >
+          + {{ hiddenCountries.length }} Autre(s)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals pour Langues et Pays -->
+  <div *ngIf="showLanguageModal" class="source-modal">
+    <!-- Structure similaire au modal sources avec des drapeaux -->
+  </div>
+
+  <div *ngIf="showCountryModal" class="source-modal">
+    <!-- Structure similaire au modal sources avec des drapeaux -->
+  </div>
+
+  <div *ngIf="showSourceModal" class="source-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Sélection des sources</h3>
+        <button (click)="closeSourceModal()" class="close-button">&times;</button>
+      </div>
+      <div class="modal-search">
+        <input 
+          type="text" 
+          placeholder="Rechercher une source..."
+          [(ngModel)]="sourceSearch"
+          (input)="filterSources()"
+        >
+      </div>
+      <div class="modal-sources">
+        <div 
+          *ngFor="let source of filteredModalSources"
+          class="source-item"
+          (click)="toggleSource(source)"
+        >
+          <input 
+            type="checkbox" 
+            [checked]="selectedSources.includes(source)"
+          >
+          {{ source }}
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button (click)="closeSourceModal()">Fermer</button>
+      </div>
+    </div>
+  </div>
+  <!-- search-bar.component.html -->
+<!-- <div class="analysis-modal" *ngIf="showAnalysis">
+  <div class="analysis-content">
+    <div class="modal-header">
+      <h2>🔍 Bias Buster Analysis</h2>
+      <button (click)="showAnalysis = false">&times;</button>
+    </div>
+    
+    <div class="summary-section">
+      <h3>{{ analysisResult.summary || 'Aucun résumé disponible' }}</h3>
+      <div class="context-legend">
+        <span *ngFor="let context of getUniqueContexts()" 
+              [style.background-color]="politicalColors[context].neutral"
+              class="context-badge">
+          {{ context | uppercase }}
+        </span>
+      </div>
+    </div>
+
+    <div class="bias-analysis">
+      <div *ngFor="let article of selectedArticles" class="bias-item">
+        <div class="source-header">
+          <span class="source-name">{{ article.source?.name || 'Source inconnue' }}</span>
+          <span class="country-context">
+            ({{ getCountryCodeFromSource(article.source.name) | uppercase }} - 
+            {{ analysisResult?.politicalContexts?.[article.url] || 'global' }})
+          </span>
+        </div>
+        
+        <div class="bias-visualization">
+          <div class="bias-bar" 
+               [style.width.%]="(analysisResult.biasScores[article.url] + 1) * 50"
+               [style.backgroundColor]="getBiasColor(
+                 analysisResult.biasScores[article.url],
+                 analysisResult.politicalContexts[article.url]
+               )">
+            {{ analysisResult.biasScores[article.url] | number:'1.1-2' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+</div>
+<app-card-cluster [articles]="results"></app-card-cluster>

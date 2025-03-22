@@ -1,0 +1,32 @@
+
+<div class="app-container">
+  <app-sidebar></app-sidebar>
+  
+  <div class="main-content">
+    <app-search-bar (search)="handleSearch($event)"></app-search-bar>
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<style>
+  
+  app-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 100;
+  }
+
+  app-search-bar {
+    margin-left: 250px; /* Même largeur que la sidebar */
+    padding: 20px;
+    display: block;
+    position: relative;
+    z-index: 90;
+  }
+
+  router-outlet {
+    margin-left: 250px;
+    padding: 20px;
+  }
+</style>

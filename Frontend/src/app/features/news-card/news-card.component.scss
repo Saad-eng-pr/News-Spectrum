@@ -1,0 +1,231 @@
+.card {
+  position: relative; /* Ensures that .hover-zone is positioned relative to this */
+  // display: inline-block; /* Adjust if needed */
+    width: 350px; // Fixed width
+    height: auto; // Fixed height, maybe
+    background-color: #e5ddf2; // Make background transparent
+    border: 2px solid #c7b1d4; // Border color from the previous background color
+    border-radius: 10px;
+    padding: 1px;
+    // box-shadow: 2px 7px 5px rgba(43, 32, 75, 0.6); /* Subtle shadow effect */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    // justify-content:space-evenly;
+    align-items: center;
+    z-index: 1;
+    .card-image {
+      position: relative;
+      margin-top: 15px;
+      width: 90%;
+      perspective: 1000px; /* Smooth 3D effect */
+    
+      img.flip-image {
+        object-fit: contain;
+        width: 100%;
+        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        backface-visibility: hidden;
+      }
+    
+      .card-text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgb(83, 63, 129); 
+        color: #c2ade8c6;
+        padding: 15px;
+        text-align: center;
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start; /* Align text at the top */
+    
+        opacity: 0;
+        transform: rotateX(-180deg); /* Start flipped */
+        backface-visibility: hidden;
+        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    
+        overflow-y: auto; /* Enables scrolling when needed */
+        max-height: 100%; /* Ensures it does not overflow the card */
+      }
+    
+      &:hover {
+        img.flip-image {
+          transform: rotateX(180deg);
+          opacity: 0;
+        }
+    
+        .card-text {
+          transform: rotateX(0deg);
+          opacity: 1;
+        }
+      }
+    }
+    
+    
+  
+    .card-body {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+  
+      .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 0;
+        color: #333;
+      }
+  
+      .card-content {
+        font-size: 1rem;
+        margin-top: 10px;
+        color: #555;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+    }
+  }
+  
+
+  
+
+
+  //hover
+  .hover-external-zone {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Ensures it doesn’t block interactions with elements below */
+    z-index: 2;
+  }
+  
+  .hover-internal-zone {
+    position: absolute;
+    top: -50%;
+    right: 50%;
+    // transform: translate(-50%, -50%);
+    width: 100%;
+    height: 30px;
+    
+
+    display: flex;
+    justify-content: space-between ;
+    align-items: center ;
+
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(255, 0, 195);
+    opacity: 0; 
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none; // Prevent accidental clicks when hidden
+  
+    &.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+  .sticky-bookmark {
+    // position: absolute;
+    // bottom: 25%;
+    // right: 25%;
+    transform: scale(1.1);
+    margin-left: 10px;
+    background: rgb(136, 9, 161); /* Just to see the glow properly */
+    color: rgb(255, 255, 255);
+    padding: 3px;
+    border-radius: 4px; /* Optional: rounded corners */
+    // box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.8); /* Green glow */
+     // Ensures it's always on top
+     &.saved {
+      background: rgba(255, 255, 255, 0.365); /* Just to see the glow properly */
+      color: rgb(136, 9, 161);
+    }
+  }
+  
+  .sticky-checkbox {
+    // position: absolute;
+    // bottom: 25%;
+    // right: 25%;
+    transform: scale(1.6);
+    margin-right: 10px;
+     // Ensures it's always on top
+  }
+
+ 
+  
+  .biasRating {
+    display: flex;
+    width: 80px;
+    justify-content: space-evenly;
+    align-items: center;
+    color: rgba(63, 45, 105,1);
+    background-color: #c2ade8c6; /* Soft purple backlight */
+    border: 2px solid rgba(63, 45, 105, 0.8); /* Purple border line */
+    border-radius: 10px; /* Smooth rounded corners */
+    box-shadow: 0 4px 8px rgba(63, 45, 105, 0.6), 0 0 15px rgba(63, 45, 105, 0.5); /* Shadow effect */
+    text-shadow: 1px 1px 5px rgba(110, 141, 207, 0.7); /* Text glow effect */
+    padding: 6px;
+    font-weight: bold;
+    position: relative; /* For positioning the sliding animation */
+    opacity: 0; /* Start invisible */
+    transform: translateY(-100%); /* Start off-screen above */
+    transition: opacity 0.5s ease-in-out; /* Fade-in effect */
+  }
+  
+  .biasRating.visible {
+    opacity: 1; /* Make it visible */
+    transform: translateY(0); /* Slide to the original position */
+    animation: slideIn 0.5s forwards; /* Slide-in animation when visible */
+  }
+  
+  @keyframes slideIn {
+    0% {
+      transform: translateY(-100%); /* Start above */
+      opacity: 0; /* Start invisible */
+    }
+    100% {
+      transform: translateY(0); /* End at original position */
+      opacity: 1; /* Fully visible */
+    }
+  }
+  
+  @keyframes slideOut {
+    0% {
+      transform: translateY(0); /* Start at original position */
+      opacity: 1; /* Fully visible */
+    }
+    100% {
+      transform: translateY(-100%); /* Slide up to off-screen */
+      opacity: 0; /* Fade out */
+    }
+  }
+  
+  .biasRating.hidden {
+    animation: slideOut 0.5s forwards; /* Slide-out animation when hidden */
+  }
+  
+  .biasRating:hover {
+    // box-shadow: 0 6px 12px rgba(137, 43, 226, 0.8), 0 0 20px rgba(137, 43, 226, 0.8); /* Enhanced shadow on hover */
+    background-color: rgb(83, 63, 129); /* Slightly stronger background on hover */
+    color: #c2ade8c6
+  }
+  
+.Source {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #533f81;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.Author {
+  font-size: 0.8rem;
+  color: #7a6a9e;
+  margin-top: 5px;
+  text-align: center;
+  font-style: italic;
+}

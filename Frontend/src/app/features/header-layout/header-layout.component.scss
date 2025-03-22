@@ -1,0 +1,249 @@
+.header {
+  display: flex;
+  justify-content: space-between; // pushes one to the right, and the other to the most left.
+  align-items: center;
+  padding: 0px;
+  //background-color: #333; /* Dark background for the header */
+  //color: rgba(255, 255, 255, 0);
+}
+
+.bundle {
+  display: flex;
+  align-items: center; // Vertically align elements
+  // justify-content: center; // Horizontally align elements
+  gap: 10px; // Adds spacing between elements
+  position: absolute;
+  left: 15px;
+  top: 15px;
+}
+
+/* Bouton burger */
+.burger-button {
+  background: none;
+  border: 2px solid #4c3680; /* Specify width, style, and color */
+  border-radius: 8px; /* Use CSS comment syntax */
+  // cursor: pointer;
+  padding: 7px;
+  align-items: center;
+  // transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth fade */
+  // opacity: 0.5;
+
+}
+
+.burger-button span {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background-color: #4c3680;
+  margin: 5px 0;
+}
+
+
+.logo-button {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: inline-block;
+// }
+
+.logo-image {
+  width: var(--logo-size, 120px); /* Default size */
+  height: auto;
+  object-fit: contain;
+}
+
+  // @media (max-width: 768px) {
+  //   --logo-size: 50px;  // Smaller size for tablets
+  //   --logo-margin-left: 8px; // Smaller left margin for tablets
+  // }
+
+  // @media (max-width: 480px) {
+  //   --logo-size: 40px;  // Even smaller for mobile devices
+  //   --logo-margin-left: 5px; // Even smaller left margin for mobile devices
+  // }
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--header-actions-gap, 20px);
+  justify-content: center;
+  padding: var(--header-actions-padding, 10px);
+
+  @media (max-width: 768px) {
+    --header-actions-gap: 15px;
+    --header-actions-padding: 8px;
+  }
+
+  @media (max-width: 480px) {
+    --header-actions-gap: 10px;
+    --header-actions-padding: 5px;
+  }
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;  // Makes the div appear clickable
+  padding: var(--action-item-padding, 5px);
+  border-radius: 8px;  // Rounded corners like a button
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+  text-align: center;
+  background-color: #f8f9fa;  // Light background for each button
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  // Default shadow
+
+  &:hover {
+    transform: scale(1.05);  // Slight scaling effect
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);  // Stronger shadow on hover
+    background-color: #e9ecef;  // Change background on hover
+  }
+
+  &:active {
+    transform: scale(0.98);  // Slight shrinking effect on click
+  }
+
+  .icon {
+    font-size: 30px;
+    margin-bottom: 3px;
+  }
+
+  .text {
+    font-size: 12px;
+    color: #333;
+
+    &:hover {
+      color: #007bff;  // Change text color on hover
+    }
+  }
+
+  @media (max-width: 768px) {
+    --action-item-padding: 4px;
+  }
+
+  @media (max-width: 480px) {
+    --action-item-padding: 3px;
+  }
+}
+
+
+
+
+
+
+
+
+
+.daBox {
+  position: relative;
+}
+
+// .action-item {
+//   display: inline-block;
+// }
+
+// button {
+//   // font-size: 16px;
+//   // padding: 10px;
+// }
+
+.mat-menu-panel {
+  background-color: #f9f9f9;
+}
+
+
+
+
+
+/* app.component.css */
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+  z-index: 5;
+}
+
+.dropdown-trigger {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 10px;
+  min-width: 200px;
+
+  // Positioning when both axes are considered
+  &.bottom.right {
+    top: 100%; // Position below the trigger
+    left: 0; // Position right of the trigger
+  }
+
+  &.bottom.left {
+    top: 100%; // Position below the trigger
+    right: 0; // Position left of the trigger
+  }
+
+  &.top.right {
+    bottom: 100%; // Position above the trigger
+    left: 100%; // Position right of the trigger
+  }
+
+  &.top.left {
+    bottom: 100%; // Position above the trigger
+    right: 0; // Position left of the trigger
+  }
+}
+
+
+.dropdown-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-menu li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f1f1f1;
+}
+
+.icon {
+  margin-right: 10px;
+  font-size: 18px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block; /* Makes the element block-level for auto margin centering */
+}
+
+.icon2 {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.fancyAcc {
+  display: flex;
+  // flex-wrap: wrap; /* Allow children to wrap to the next row */
+  width: 100%; /* Ensure the container spans the full width */
+}
+
+.fancyAcc > * {
+  flex: 1 ; /* Each item takes 50% of the width */
+  box-sizing: border-box; /* To avoid padding breaking the layout */
+}

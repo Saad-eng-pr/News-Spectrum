@@ -1,0 +1,24 @@
+
+.articles-container {
+    position: relative; /* This ensures the overlay is positioned relative to this */
+    max-height: 100vh;
+    max-width: 1200px;
+    overflow: hidden; /* Prevents the entire container from scrolling */
+    margin: auto; /* Centers the container */
+}
+
+.scroll-content {
+    overflow-y: auto; /* Enables scrolling for the content inside */
+    max-height: 100vh; /* Ensures only this part scrolls */
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.article-item {
+    display: flex;
+    justify-content: center;
+    // overflow: hidden;
+    max-width: 100%;
+}
